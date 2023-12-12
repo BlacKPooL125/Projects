@@ -93,6 +93,7 @@ int main(void) {
     int otp;
     int new_otp;
     int action2;
+    int action2_1;
     int action3;
     int option;
     int admin_index;
@@ -193,6 +194,14 @@ int main(void) {
                 printf("\nEnter your OTP Code: ");
                 scanf("%d", &new_otp);
 
+                if (new_otp != otp)
+                {
+                    red_text();
+                    printf("\nOTP did not match!\nPlease Try Again!\n");
+                    reset_text();
+                    continue;
+                }
+
                 printf("\n\n");
             
                 printf("Enter 1 to Confirm Order and 2 to Cancel Order: ");
@@ -244,6 +253,36 @@ int main(void) {
                     red_text();
                     printf("Order Canceled!\n");
                     reset_text();
+                    while (1)
+                    {
+                        printf("\nEnter 1 to go back to Main Menu and 2 to exit: ");
+                        scanf("%d", &action2_1);
+                        if (action2_1 == 1)
+                        {
+                            clear_screen();
+                            break;
+                        }
+                        else if (action2_1 == 2)
+                        {
+                            clear_screen();
+                            red_text();
+                            printf("Exited!");
+                            reset_text();
+                            return 0;
+                        }
+                        else
+                        {
+                            red_text();
+                            printf("Invalid Choice!\n");
+                            reset_text();
+                            continue;
+                        }
+                    }
+                    if (action2_1 == 1)
+                    {
+                        clear_screen();
+                        break;
+                    }
                 }
                 else
                 {
