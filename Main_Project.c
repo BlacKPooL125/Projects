@@ -26,6 +26,13 @@ struct admin
     char password[12];
 };
 
+void clear_screen() {
+
+    printf("\033[2J");
+    printf("\033[H");
+
+}
+
 void display_games(struct game array[]) {
     
     printf("\033[1;34m");
@@ -85,7 +92,7 @@ int main(void) {
 
     while (1)
     {
-        printf("\033[2J");
+        clear_screen();
         printf("\033[1;34m");
         printf("Welcome to GameHub\n");
         printf("\033[0m");
@@ -98,7 +105,7 @@ int main(void) {
 
         if (action == 1)
         {
-            printf("\033[2J");
+            clear_screen();
             printf("Available Games are:\n\n");
             display_games(games);
             printf("Enter 1 to Go Back to Main Menu and 0 to Exit: ");
@@ -120,7 +127,7 @@ int main(void) {
         }
         else if (action == 2)
         {
-            printf("\033[2J");
+            clear_screen();
             printf("Enter Game Code from Displayed Games (1 - 20): ");
             scanf("%d", &game_choice);
 
@@ -150,7 +157,7 @@ int main(void) {
             printf("Enter Your GamePal Account Number (6 Digits): ");
             scanf("%s", new_customer.gamepal);
 
-            printf("\033[2J");
+            clear_screen();
             float final_amount = price + (price * 0.10);
             printf("Amount to be Paid Including 10%% VAT: %2.f\n", final_amount);
             printf("Enter Amount to Collect from your GamePal: ");
@@ -215,7 +222,7 @@ int main(void) {
             printf("Enter Password (Maximum 12 Characters): ");
             scanf("%s", new_admin.password);
 
-            printf("\033[2J");
+            clear_screen();
 
             printf("1. Add a new game to replace one\n2. Go Back to Main Menu\nEnter a choice: ");
             scanf("%d" &admin_choice);
