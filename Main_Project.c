@@ -175,7 +175,7 @@ int main(void) {
 
             clear_screen();
             float final_amount = price + (price * 0.10);
-            printf("Amount to be Paid Including 10%% VAT: %.2f\n", final_amount);
+            printf("Amount to be Paid Including 10%% VAT: $%.2f\n", final_amount);
             printf("Enter Amount to Collect from your GamePal: ");
             scanf("%f", &amount);
 
@@ -200,9 +200,11 @@ int main(void) {
                 if (option == 1)
                 {
                     clear_screen();
+                    blue_text();
                     printf("Order Confirmed!\n");
                     printf("Transaction Successful!\n");
-                    printf("Game: %s\n", new_name);
+                    reset_text();
+                    printf("\nGame: %s\n", new_name);
                     printf("Customer: %s\n", new_customer.name);
                     printf("Customer Phone: %s\n", new_customer.phone);
                     printf("Customer Email: %s\n", new_customer.email);
@@ -210,8 +212,10 @@ int main(void) {
                     printf("Collected Amount: $%.2f\n", amount);
                     printf("Paid Amount Including 10%% VAT: $%.2f\n", final_amount);
                     printf("Returned Amount: $%.2f\n", (amount - final_amount));
-                    printf("Thank You for your Purchase!\n");
-                    printf("Enter 1 to go back to Main Menu and 2 to Exit: ");
+                    blue_text();
+                    printf("\nThank You for your Purchase!\n");
+                    reset_text();
+                    printf("\nEnter 1 to go back to Main Menu and 2 to Exit: ");
                     scanf("%d", &action2);
                     if (action2 == 1)
                     {
@@ -224,7 +228,7 @@ int main(void) {
                         red_text();
                         printf("Exited!");
                         reset_text();
-                        break;
+                        return 0;
                     }
                     else
                     {
@@ -281,18 +285,21 @@ int main(void) {
                         reset_text();
                         continue;
                     }
-                    
                     for (int index = 0; index < 20; index++)
                     {
                         if (admin_index == games[index].code)
                         {
-                            printf("Enter name of new Game: ");
+                            printf("The Game You Want to Replace is:\n");
+                            display_info(games, index);
+                            printf("\nEnter name of new Game: ");
                             scanf("%s", games[index].name);
                             printf("Enter price of new Game: ");
                             scanf("%f", &games[index].price);
                             blue_text();
                             printf("\n\nNew Game Added Successfully!\n");
                             reset_text();
+                            printf("The New Game is:\n");
+                            display_info(games, index);
                         }
                     }
                 }
