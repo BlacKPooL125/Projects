@@ -93,6 +93,7 @@ int main(void) {
     int otp;
     int new_otp;
     int action2;
+    int action3;
     int option;
     int admin_index;
     srand(time(NULL));
@@ -289,7 +290,7 @@ int main(void) {
                     {
                         if (admin_index == games[index].code)
                         {
-                            printf("The Game You Want to Replace is:\n");
+                            printf("\nThe Game You Want to Replace is:\n");
                             display_info(games, index);
                             printf("\nEnter name of new Game: ");
                             scanf("%s", games[index].name);
@@ -301,6 +302,28 @@ int main(void) {
                             printf("The New Game is:\n");
                             display_info(games, index);
                         }
+                    }
+                    printf("\n\nEnter 1 to go back to Admin Menu and 2 to Exit: ");
+                    scanf("%d", &action3);
+                    if (action3 == 1)
+                    {
+                        clear_screen();
+                        break;
+                    }
+                    else if (action3 == 2)
+                    {
+                        clear_screen();
+                        red_text();
+                        printf("Exited!");
+                        reset_text();
+                        return 0;
+                    }
+                    else
+                    {
+                        red_text();
+                        printf("Invalid Choice!\n");
+                        reset_text();
+                        continue;
                     }
                 }
                 else if (admin_choice == 2)
