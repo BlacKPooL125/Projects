@@ -60,6 +60,18 @@ void reset_text() {
 
 }
 
+void display_main_menu() {
+
+    blue_text();
+    printf("\nWelcome to GameHub\n");
+    reset_text();
+    printf("\n1. Display Available Games\n");
+    printf("2. Place an Order\n");
+    printf("3. Admin Access\n");
+    printf("4. Exit\n");
+
+}
+
 void display_item(game array[]) {
 
     blue_text();
@@ -141,13 +153,7 @@ int main(void) {
 
     while (1)
     {
-        blue_text();
-        printf("\nWelcome to GameHub\n");
-        reset_text();
-        printf("\n1. Display Available Games\n");
-        printf("2. Place an Order\n");
-        printf("3. Admin Access\n");
-        printf("4. Exit\n");
+        display_main_menu();
 
         printf("\nEnter an Option (1 - 4): ");
         scanf("%d", &main_action);
