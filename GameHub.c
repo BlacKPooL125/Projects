@@ -26,7 +26,7 @@ struct admin {
     char name[100];
     char email[100];
     char password[12];
-    
+
 };
 
 void clear_screen() {
@@ -104,22 +104,22 @@ int main(void) {
     item[18] = (game){"The Last of Us", 49.99, 19};
     item[19] = (game){"The Witcher 3", 39.99, 20};
    
-
-    int action;
-    int inner_action;
-    int game_choice;
-    char new_name[100];
-    struct customer new_customer;
-    struct admin new_admin;
-    float amount;
+    int main_action;
+    int option1_action1;
+    int selected_game_code;
+    char selected_game_name[100];
+    struct customer customer_access;
+    struct admin admin_access;
+    float collected_amount;
     float price;
     int otp;
-    int new_otp;
-    int action2;
-    int action2_1;
+    int requested_otp;
+    int option2_action1;
+    int option2_action2;
     int action3;
     int option;
     int admin_index;
+
     srand(time(NULL));
 
     while (1)
@@ -131,10 +131,11 @@ int main(void) {
         printf("2. Place an Order\n");
         printf("3. Admin Access\n");
         printf("4. Exit\n");
-        printf("\nEnter a Choice (1 - 4): ");
-        scanf("%d", &action);
 
-        if (action == 1)
+        printf("\nEnter an Option (1 - 4): ");
+        scanf("%d", &main_action);
+
+        if (main_action == 1)
         {
             clear_screen();
             printf("Available item Are:\n\n");
@@ -142,14 +143,15 @@ int main(void) {
             
             while (1)
             {
-                printf("\n1. Main Menu\n2. Exit\n\nEnter: ");
-                scanf("%d", &inner_action);
-                if (inner_action == 1)
+                printf("\n1. Main Menu\n2. Exit\n\nEnter an Option: ");
+                scanf("%d", &option1_action1);
+
+                if (option1_action1 == 1)
                 {
                     clear_screen();
                     break;
                 }
-                else if (inner_action == 2)
+                else if (option1_action1 == 2)
                 {
                     clear_screen();
                     red_text();
@@ -166,43 +168,60 @@ int main(void) {
                 }
             }
         }
-        else if (action == 2)
+
+        else if (main_action == 2)
         {
             clear_screen();
-            printf("Enter Game Code from Displayed item (1 - 20): ");
-            scanf("%d", &game_choice);
 
-            printf("\n\n");
-
-            for (int index = 0; index < 20; index++)
+            while (1)
             {
-                if (game_choice == item[index].code)
+                printf("Enter Game Code from Displayed item (1 - 20): ");
+                scanf("%d", &selected_game_code);
+
+                int game_found = 0;
+
+                printf("\n\n");
+
+                for (int index = 0; index < 20; index++)
                 {
-                    display_info(item, index);
-                    strcpy(new_name, item[index].name);
-                    price = item[index].price;
-                    break;
+                    if (selected_game_code == item[index].code)
+                    {
+                        display_info(item, index);
+                        strcpy(selected_game_name, item[index].name);
+                        price = item[index].price;
+                        game_found = 1;
+                        break;
+                    }
+                }
+                
+                if (game_found != 1)
+                {
+                    red_text();
+                    printf("\n\nInvalid Code!\nPlease try Again!");
+                    reset_text();
+                    printf("\n\n");
+                    continue;
                 }
             }
 
             printf("\n\n");
 
             printf("Enter New Username: ");
-            scanf("%s", new_customer.name);
+            scanf("%s", customer_access.name);
             printf("Enter Phone Number: ");
-            scanf("%s", new_customer.phone);
+            scanf("%s", customer_access.phone);
             printf("Enter Email: ");
-            scanf("%s", new_customer.email);
+            scanf("%s", customer_access.email);
             printf("Enter a Password (Maximum 12 Characters): ");
-            scanf("%s", new_customer.password);
+            scanf("%s", customer_access.password);
             printf("Enter Your GamePal Account Number (6 Digits): ");
-            scanf("%s", new_customer.gamepal);
+            scanf("%s", customer_access.gamepal);
 
             clear_screen();
             float final_amount = price + (price * 0.10);
-            printf("Amount to be Paid Including 10%% VAT: $%.2f\n", final_amount);
+            printf("Total Amount to be Paid Including 10%% VAT: $%.2f\n", final_amount);
             printf("Enter Amount to Collect From Your GamePal: ");
-            scanf("%f", &amount);
+            scanf("%f", &collected_amount);
 
             printf("\n\n");
 
@@ -217,9 +236,9 @@ int main(void) {
             while (1)
             {
                 printf("\nEnter Your OTP Code: ");
-                scanf("%d", &new_otp);
+                scanf("%d", &requested_otp);
 
-                if (new_otp != otp)
+                if (requested_otp != otp)
                 {
                     red_text();
                     printf("\nOTP did not Match!\nPlease Try Again!\n");
@@ -229,35 +248,40 @@ int main(void) {
 
                 printf("\n\n");
             
-                printf("1. Confirm Order\n2. Cancel Order\nEnter: ");
+                printf("1. Confirm Order\n2. Cancel Order\n\nEnter an Option: ");
                 scanf("%d", &option);
 
                 if (option == 1)
                 {
                     clear_screen();
+
                     green_text();
                     printf("Order Confirmed!\n");
                     printf("Transaction Successful!\n");
                     reset_text();
-                    printf("\nGame: %s\n", new_name);
-                    printf("Customer: %s\n", new_customer.name);
-                    printf("Customer Phone: %s\n", new_customer.phone);
-                    printf("Customer Email: %s\n", new_customer.email);
-                    printf("Customer GamePal Account Number: %s\n", new_customer.gamepal);
-                    printf("Collected Amount: $%.2f\n", amount);
-                    printf("Paid Amount Including 10%% VAT: $%.2f\n", final_amount);
-                    printf("Returned Amount: $%.2f\n", (amount - final_amount));
+
+                    printf("\nGame: %s\n", selected_game_name);
+                    printf("Customer: %s\n", customer_access.name);
+                    printf("Customer Phone: %s\n", customer_access.phone);
+                    printf("Customer Email: %s\n", customer_access.email);
+                    printf("Customer GamePal Account Number: %s\n", customer_access.gamepal);
+                    printf("Collected collected_amount: $%.2f\n", collected_amount);
+                    printf("Paid collected_amount Including 10%% VAT: $%.2f\n", final_amount);
+                    printf("Returned collected_amount: $%.2f\n", (collected_amount - final_amount));
+
                     blue_text();
                     printf("\nThank You for Your Purchase!\n");
                     reset_text();
-                    printf("\n1. Main Menu\n2. Exit\nEnter: ");
-                    scanf("%d", &action2);
-                    if (action2 == 1)
+
+                    printf("\n1. Main Menu\n2. Exit\n\nEnter an Option: ");
+                    scanf("%d", &option2_action1);
+
+                    if (option2_action1 == 1)
                     {
                         clear_screen();
                         break;
                     }
-                    else if (action2 == 2)
+                    else if (option2_action1 == 2)
                     {
                         clear_screen();
                         red_text();
@@ -278,16 +302,18 @@ int main(void) {
                     red_text();
                     printf("Order Cancelled!\n");
                     reset_text();
+
                     while (1)
                     {
-                        printf("\n1. Main Menu\n2. Exit\nEnter: ");
-                        scanf("%d", &action2_1);
-                        if (action2_1 == 1)
+                        printf("\n1. Main Menu\n2. Exit\n\nEnter an Option: ");
+                        scanf("%d", &option2_action2);
+
+                        if (option2_action2 == 1)
                         {
                             clear_screen();
                             break;
                         }
-                        else if (action2_1 == 2)
+                        else if (option2_action2 == 2)
                         {
                             clear_screen();
                             red_text();
@@ -303,7 +329,7 @@ int main(void) {
                             continue;
                         }
                     }
-                    if (action2_1 == 1)
+                    if (option2_action2 == 1)
                     {
                         clear_screen();
                         break;
@@ -317,32 +343,38 @@ int main(void) {
                 }
             }
         }
-        else if (action == 3)
+
+        else if (main_action == 3)
         {
             int admin_choice;
+
             clear_screen();
+
             blue_text();
             printf("Welcome to Admin Access!\n");
             reset_text();
 
             printf("\nEnter Admin Username: ");
-            scanf("%s", new_admin.name);
+            scanf("%s", admin_access.name);
             printf("Enter Admin Email: ");
-            scanf("%s", new_admin.email);
+            scanf("%s", admin_access.email);
             printf("Enter Password (Maximum 12 Characters): ");
-            scanf("%s", new_admin.password);
+            scanf("%s", admin_access.password);
 
             while (1)
             {
                 clear_screen();
-                printf("1. Add a New Game to Replace one\n2. Exit\nEnter: ");
+
+                printf("1. Add a New Game to Replace one\n2. Exit\n\nEnter an Option: ");
                 scanf("%d", &admin_choice);
 
                 if (admin_choice == 1)
                 {
                     clear_screen();
+
                     printf("Enter Code of the Game You Want to Replace: ");
                     scanf("%d", &admin_index);
+
                     if (admin_index < 1 || admin_index > 20)
                     {
                         red_text();
@@ -350,6 +382,7 @@ int main(void) {
                         reset_text();
                         continue;
                     }
+
                     for (int index = 0; index < 20; index++)
                     {
                         if (admin_index == item[index].code)
@@ -367,8 +400,10 @@ int main(void) {
                             display_info(item, index);
                         }
                     }
-                    printf("\n\n1. Admin Menu\n2. Exit\nEnter: ");
+
+                    printf("\n\n1. Admin Menu\n2. Exit\n\nEnter an Option: ");
                     scanf("%d", &action3);
+
                     if (action3 == 1)
                     {
                         clear_screen();
@@ -404,7 +439,8 @@ int main(void) {
                 }
             }
         }
-        else if (action == 4)
+
+        else if (main_action == 4)
         {
             clear_screen();
             red_text();
@@ -412,6 +448,7 @@ int main(void) {
             reset_text();
             break;
         }
+
         else
         {
             red_text();
