@@ -412,16 +412,23 @@ int main(void) {
                     {
                         if (admin_index == item[index].code)
                         {
-                            printf("\nThe Game You Want to Replace is:\n");
+                            blue_text();
+                            printf("\nThe Game You Want to Replace is:");
+                            reset_text();
+                            printf("\n\n");
                             display_info(item, index);
                             printf("\nEnter Name of New Game: ");
                             scanf("%s", item[index].name);
                             printf("Enter Price of New Game: ");
                             scanf("%f", &item[index].price);
                             green_text();
-                            printf("\n\nNew Game Added Successfully!\n");
+                            printf("\n\nNew Game Added Successfully!");
                             reset_text();
-                            printf("The New Game is:\n");
+                            printf("\n\n");
+                            blue_text();
+                            printf("The New Game is:");
+                            reset_text();
+                            printf("\n\n");
                             display_info(item, index);
                         }
                     }
