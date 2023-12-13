@@ -14,10 +14,10 @@ typedef struct database {
 struct customer {
 
     char name[100];
-    char phone[11];
+    char phone[12];
     char email[50];
-    char password[6];
-    char gamepal[6];
+    char password[7];
+    int gamepal;
 
 };
 
@@ -232,15 +232,15 @@ int main(void) {
             printf("\n\n");
 
             printf("Enter New Username (Use '_' Instead of White Spaces): ");
-            scanf("%s", customer_access.name);
-            printf("Enter Phone Number: ");
-            scanf("%s", customer_access.phone);
+            scanf("%99s", customer_access.name);
+            printf("Enter Phone Number (11 Digits Without +88): ");
+            scanf("%11s", customer_access.phone);
             printf("Enter Email: ");
-            scanf("%s", customer_access.email);
+            scanf("%99s", customer_access.email);
             printf("Enter a Password (Maximum 6 Characters): ");
-            scanf("%s", customer_access.password);
+            scanf("%6s", customer_access.password);
             printf("Enter Your GamePal Account Number (6 Digits): ");
-            scanf("%s", customer_access.gamepal);
+            scanf("%6d", &customer_access.gamepal);
 
             clear_screen();
             float final_amount = price + (price * 0.10);
@@ -276,8 +276,8 @@ int main(void) {
 
             while (1)
             {
-                printf("\nEnter Your OTP Code: ");
-                scanf("%d", &requested_otp);
+                printf("\nEnter Your OTP Code (6 Digits): ");
+                scanf("%6d", &requested_otp);
 
                 if (requested_otp != otp)
                 {
@@ -399,9 +399,9 @@ int main(void) {
             while (1)
             {
                 printf("\nEnter Admin Username (No White Spaces): ");
-                scanf("%s", admin_access.name);
+                scanf("%99s", admin_access.name);
                 printf("Enter Password (Maximum 6 Characters): ");
-                scanf("%d", &admin_access.password);
+                scanf("%6d", &admin_access.password);
                  
                 if (strcmp(admin_access.name, fixed_admin.name) == 0 && admin_access.password == fixed_admin.password)
                 {
@@ -446,7 +446,7 @@ int main(void) {
                             printf("\n\n");
                             display_info(item, index);
                             printf("\nEnter Name of New Game (Use '_' Instead of White Spaces): ");
-                            scanf("%s", item[index].name);
+                            scanf("%99s", item[index].name);
                             printf("Enter Price of New Game: ");
                             scanf("%f", &item[index].price);
                             green_text();
