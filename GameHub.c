@@ -4,32 +4,42 @@
 #include <time.h>
 
 typedef struct database {
+
     char name[100];
     float price;
     int code;
+
 } game;
 
 struct customer {
+
     char name[100];
     char phone[20];
     char email[100];
     char password[12];
     char gamepal[6];
+
 };
 
 struct admin {
+
     char name[100];
     char email[100];
     char password[12];
+    
 };
 
 void clear_screen() {
+
     printf("\033[2J");
     printf("\033[H");
+
 }
 
 void blue_text() {
+
     printf("\033[1;34m");
+
 }
 
 void green_text() {
@@ -45,48 +55,55 @@ void red_text() {
 }
 
 void reset_text() {
+
     printf("\033[0m");
+
 }
 
 void display_item(game array[]) {
+
     blue_text();
-    printf("%-5s%-35s%-10s\n", "Code", "Game Name", "Price");
+    printf("%-5s  %-35s%-10s\n", "Code", "Game Name", "Price");
     reset_text();
 
     for (int index = 0; index < 20; index++)
     {
-        printf("%-5d%-35s$%-10.2f\n", array[index].code, array[index].name, array[index].price);
+        printf("%-5d  %-35s$%-10.2f\n", array[index].code, array[index].name, array[index].price);
     }
+
 }
 
 void display_info(game array[], int index) {
+
     printf("Game Name: %s\n", array[index].name);
     printf("Price: $%.2f\n", array[index].price);
+
 }
 
 int main(void) {
 
-    game item[20] = {
-        {"Assassin's Creed IV: Black Flag", 29.99, 1},
-        {"Baldur's Gate 3", 49.99, 2},
-        {"Call of Duty: Black Ops 2", 39.99, 3},
-        {"Cyberpunk 2077", 59.99, 4},
-        {"DOOM Eternal", 44.99, 5},
-        {"EA Sports FC 24", 34.99, 6},
-        {"Elden Ring", 54.99, 7},
-        {"Far Cry 6", 49.99, 8},
-        {"Forza Horizon 5", 59.99, 9},
-        {"God of War", 39.99, 10},
-        {"Grand Theft Auto V", 29.99, 11},
-        {"Hades", 24.99, 12},
-        {"Marvel's Spider-Man", 49.99, 13},
-        {"Max Payne 3", 19.99, 14},
-        {"Red Dead Redemption 2", 54.99, 15},
-        {"Resident Evil 4", 29.99, 16},
-        {"Starfield", 59.99, 17},
-        {"The Elder Scrolls V: Skyrim", 39.99, 18},
-        {"The Last of Us", 49.99, 19},
-        {"The Witcher 3", 39.99, 20}};
+    game item[20];
+    item[0] = (game){"Assassin's Creed IV: Black Flag", 29.99, 1};
+    item[1] = (game){"Baldur's Gate 3", 49.99, 2};
+    item[2] = (game){"Call of Duty: Black Ops 2", 39.99, 3};
+    item[3] = (game){"Cyberpunk 2077", 59.99, 4};
+    item[4] = (game){"DOOM Eternal", 44.99, 5};
+    item[5] = (game){"EA Sports FC 24", 34.99, 6};
+    item[6] = (game){"Elden Ring", 54.99, 7};
+    item[7] = (game){"Far Cry 6", 49.99, 8};
+    item[8] = (game){"Forza Horizon 5", 59.99, 9};
+    item[9] = (game){"God of War", 39.99, 10};
+    item[10] = (game){"Grand Theft Auto V", 29.99, 11};
+    item[11] = (game){"Hades", 24.99, 12};
+    item[12] = (game){"Marvel's Spider-Man", 49.99, 13};
+    item[13] = (game){"Max Payne 3", 19.99, 14};
+    item[14] = (game){"Red Dead Redemption 2", 54.99, 15};
+    item[15] = (game){"Resident Evil 4", 29.99, 16};
+    item[16] = (game){"Starfield", 59.99, 17};
+    item[17] = (game){"The Elder Scrolls V: Skyrim", 39.99, 18};
+    item[18] = (game){"The Last of Us", 49.99, 19};
+    item[19] = (game){"The Witcher 3", 39.99, 20};
+   
 
     int action;
     int inner_action;
