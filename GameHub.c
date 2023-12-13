@@ -80,6 +80,23 @@ void display_info(game array[], int index) {
 
 }
 
+void exit_program () {
+
+    clear_screen();
+    red_text();
+    printf("Exited!\n");
+    reset_text();
+
+}
+
+void invalid_choice() {
+
+    red_text();
+    printf("Invalid Choice!\n");
+    reset_text();
+
+}
+
 int main(void) {
 
     game item[20];
@@ -153,17 +170,12 @@ int main(void) {
                 }
                 else if (option1_action1 == 2)
                 {
-                    clear_screen();
-                    red_text();
-                    printf("Exited!\n");
-                    reset_text();
+                    exit_program ();
                     return 0;
                 }
                 else
                 {
-                    red_text();
-                    printf("Invalid Choice!\n");
-                    reset_text();
+                    invalid_choice();
                     continue;
                 }
             }
@@ -193,7 +205,7 @@ int main(void) {
                         break;
                     }
                 }
-                
+
                 if (game_found != 1)
                 {
                     red_text();
@@ -202,6 +214,11 @@ int main(void) {
                     printf("\n\n");
                     continue;
                 }
+                else
+                {
+                    break;
+                }
+                
             }
 
             printf("\n\n");
@@ -220,8 +237,24 @@ int main(void) {
             clear_screen();
             float final_amount = price + (price * 0.10);
             printf("Total Amount to be Paid Including 10%% VAT: $%.2f\n", final_amount);
-            printf("Enter Amount to Collect From Your GamePal: ");
-            scanf("%f", &collected_amount);
+            
+            while (1)
+            {
+                printf("Enter Amount to Collect From Your GamePal: ");
+                scanf("%f", &collected_amount);
+
+                if (collected_amount < final_amount)
+                {
+                    red_text();
+                    printf("\nInsufficient Funds!\nPlease Try Again!\n\n");
+                    reset_text();
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             printf("\n\n");
 
@@ -230,7 +263,7 @@ int main(void) {
             otp = rand() % 90001 + 510000;
             
             blue_text();
-            printf("Your OTP Code is: %d\n", otp);
+            printf("\nYour OTP Code is: %d\n", otp);
             reset_text();
 
             while (1)
@@ -283,17 +316,12 @@ int main(void) {
                     }
                     else if (option2_action1 == 2)
                     {
-                        clear_screen();
-                        red_text();
-                        printf("Exited!");
-                        reset_text();
+                        exit_program ();
                         return 0;
                     }
                     else
                     {
-                        red_text();
-                        printf("Invalid Choice!\n");
-                        reset_text();
+                        invalid_choice();
                         continue;
                     }
                 }
@@ -315,17 +343,12 @@ int main(void) {
                         }
                         else if (option2_action2 == 2)
                         {
-                            clear_screen();
-                            red_text();
-                            printf("Exited!");
-                            reset_text();
+                            exit_program ();
                             return 0;
                         }
                         else
                         {
-                            red_text();
-                            printf("Invalid Choice!\n");
-                            reset_text();
+                            invalid_choice();
                             continue;
                         }
                     }
@@ -337,9 +360,7 @@ int main(void) {
                 }
                 else
                 {
-                    red_text();
-                    printf("Invalid Choice!\n");
-                    reset_text();
+                    invalid_choice();
                 }
             }
         }
@@ -377,9 +398,7 @@ int main(void) {
 
                     if (admin_index < 1 || admin_index > 20)
                     {
-                        red_text();
-                        printf("Invalid Code!\n");
-                        reset_text();
+                        invalid_choice();
                         continue;
                     }
 
@@ -411,17 +430,12 @@ int main(void) {
                     }
                     else if (action3 == 2)
                     {
-                        clear_screen();
-                        red_text();
-                        printf("Exited!");
-                        reset_text();
+                        exit_program ();
                         return 0;
                     }
                     else
                     {
-                        red_text();
-                        printf("Invalid Choice!\n");
-                        reset_text();
+                        invalid_choice();
                         continue;
                     }
                 }
@@ -432,9 +446,7 @@ int main(void) {
                 }
                 else
                 {
-                    red_text();
-                    printf("Invalid Choice!\n");
-                    reset_text();
+                    invalid_choice();
                     continue;
                 }
             }
@@ -442,18 +454,13 @@ int main(void) {
 
         else if (main_action == 4)
         {
-            clear_screen();
-            red_text();
-            printf("Exited!\n");
-            reset_text();
+            exit_program ();
             break;
         }
 
         else
         {
-            red_text();
-            printf("Invalid Choice!\n");
-            reset_text();
+            invalid_choice();
             clear_screen();
             continue;
         }
