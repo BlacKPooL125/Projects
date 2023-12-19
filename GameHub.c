@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-typedef struct database {
+typedef struct game_database {
 
     char name[100];
     float price;
@@ -11,7 +11,7 @@ typedef struct database {
 
 } game;
 
-struct customer {
+typedef struct customer_database {
 
     char name[100];
     char phone[12];
@@ -19,14 +19,14 @@ struct customer {
     char password[7];
     char gamepal[7];
 
-};
+} customer;
 
-struct admin {
+typedef struct admin_database {
 
     char name[100];
     int passcode;
 
-};
+} admin;
 
 void real_time(char time_string[30]) {
 
@@ -170,9 +170,9 @@ int main(void) {
     int option1_action1;
     int selected_game_code;
     char selected_game_name[100];
-    struct customer customer_access;
-    struct admin admin_access;
-    struct admin fixed_admin;
+    customer customer_access;
+    admin admin_access;
+    admin fixed_admin;
     strcpy(fixed_admin.name, "GameHub");
     fixed_admin.passcode = 232526;
     float collected_amount;
@@ -190,6 +190,7 @@ int main(void) {
 
     while (1)
     {
+        clear_screen();
         display_main_menu();
 
         printf("\nEnter an Option (1 - 4): ");
@@ -198,7 +199,7 @@ int main(void) {
         if (main_action == 1)
         {
             clear_screen();
-            printf("Available item Are:\n\n");
+            printf("Available items Are:\n\n");
             display_item(item);
             
             main_menu_or_exit(&option1_action1);
