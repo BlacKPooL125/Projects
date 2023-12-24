@@ -245,7 +245,6 @@ int main(void) {
 
     while (1) //main loop to control the whole program
     {
-        clear_screen();
         display_main_menu();
 
         //prompting the user to choose a primary option
@@ -299,7 +298,7 @@ int main(void) {
                 if (game_found != 1) //condition for invalid choice
                 {
                     red_text();
-                    printf("\n\nInvalid Code!\nPlease try Again!");
+                    printf("Invalid Code!\nPlease try Again!");
                     reset_text();
                     printf("\n\n");
                     continue;
@@ -538,6 +537,7 @@ int main(void) {
 
             if (option3_action1 == 1)
             {
+                clear_screen();
                 continue;
             }
         }
@@ -550,8 +550,8 @@ int main(void) {
 
         else //for invalid choices
         {
+            printf("\n");
             invalid_choice();
-            clear_screen();
             continue;
         }
     }
