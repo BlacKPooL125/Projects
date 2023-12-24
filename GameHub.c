@@ -9,6 +9,8 @@ Efat Mahmud     | 2023-3-60-126
 
 //The Concept of this Program is an Online Game store called 'GameHub'
 
+//WARNING: NOT ALL TERMINALS SUPPORT ANSI ESCAPE CODES
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
