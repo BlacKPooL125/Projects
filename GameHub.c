@@ -1,8 +1,20 @@
+//EWU FALL 2023 CSE103 SECTION 15 GROUP PROJECT
+
+/*
+Group Members:
+Mosabbir Ahmed  | 2023-3-60-125
+Toha Haque Onim | 2023-3-60-123
+Efat Mahmud     | 2023-3-60-126
+*/
+
+//The Concept of this Program is an Online Game store called 'GameHub'
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
+//structure for video game database
 typedef struct game_database {
 
     char name[100];
@@ -11,6 +23,7 @@ typedef struct game_database {
 
 } game;
 
+//structure for customer database
 typedef struct customer_database {
 
     char name[100];
@@ -21,6 +34,7 @@ typedef struct customer_database {
 
 } customer;
 
+//structure for admin database
 typedef struct admin_database {
 
     char name[100];
@@ -28,6 +42,7 @@ typedef struct admin_database {
 
 } admin;
 
+//function to determine the time of purchase of a game
 void real_time(char time_string[30]) {
 
     time_t current_time;
@@ -38,36 +53,62 @@ void real_time(char time_string[30]) {
 
 }
 
+/*
+function which uses ASCII escape character and ANSI
+escape sequence to clear the terminal screen and
+move the cursor the top left corner
+*/
 void clear_screen() {
 
     printf("\033[2J\033[H");
 
 }
 
+/*
+function which uses ASCII escape character and ANSI
+escape sequence to change the text colour to blue
+and make it bold in the terminal
+*/
 void blue_text() {
 
     printf("\033[1;34m");
 
 }
 
+/*
+function which uses ASCII escape character and ANSI
+escape sequence to change the text colour to green
+and make it bold in the terminal
+*/
 void green_text() {
 
     printf("\033[1;32m");
 
 }
 
+/*
+function which uses ASCII escape character and ANSI
+escape sequence to change the text colour to red
+and make it bold in the terminal
+*/
 void red_text() {
 
     printf("\033[1;31m");
 
 }
 
+/*
+function which uses ASCII escape character and ANSI
+escape sequence to reset all text formatting changes
+*/
 void reset_text() {
 
     printf("\033[0m");
 
 }
 
+
+//function to display the main menu of the store
 void display_main_menu() {
 
     blue_text();
@@ -80,6 +121,7 @@ void display_main_menu() {
 
 }
 
+//function to display all the available games with necessary information
 void display_item(game array[]) {
 
     blue_text();
@@ -93,6 +135,8 @@ void display_item(game array[]) {
 
 }
 
+
+//function to display the information of a selected game
 void display_info(game array[], int index) {
 
     printf("Game Name: %s\n", array[index].name);
@@ -100,6 +144,7 @@ void display_info(game array[], int index) {
 
 }
 
+//function to display Exit message
 void exit_program() {
 
     clear_screen();
@@ -109,6 +154,7 @@ void exit_program() {
 
 }
 
+//function to display Invalid Choice message
 void invalid_choice() {
 
     red_text();
@@ -117,6 +163,10 @@ void invalid_choice() {
 
 }
 
+/*
+function to control a conditional loop to either
+go back to main menu or to exit the program
+*/
 void main_menu_or_exit(int *option) {
 
     while (1)
@@ -144,6 +194,7 @@ void main_menu_or_exit(int *option) {
 
 int main(void) {
 
+    //declaration and definition of all 20 games
     game item[20];
     item[0] = (game){"Assassin's_Creed_IV:_Black_Flag", 29.99, 1};
     item[1] = (game){"Baldur's_Gate_3", 49.99, 2};
@@ -166,6 +217,8 @@ int main(void) {
     item[18] = (game){"The_Last_of_Us", 49.99, 19};
     item[19] = (game){"The_Witcher_3", 39.99, 20};
    
+
+    //necessary variables and strings declarations
     int main_action;
     int option1_action1;
     int selected_game_code;
@@ -186,17 +239,18 @@ int main(void) {
     int option3_action1;
     int admin_index;
 
-    srand(time(NULL));
+    srand(time(NULL)); //seeding the random number generator for otp code with current time
 
-    while (1)
+    while (1) //main loop to control the whole program
     {
         clear_screen();
         display_main_menu();
 
+        //prompting the user to choose a primary option
         printf("\nEnter an Option (1 - 4): ");
         scanf("%d", &main_action);
 
-        if (main_action == 1)
+        if (main_action == 1) //option for displaying the game list
         {
             clear_screen();
             printf("Available items Are:\n\n");
@@ -204,7 +258,7 @@ int main(void) {
             
             main_menu_or_exit(&option1_action1);
 
-            if (option1_action1 == 1)
+            if (option1_action1 == 1) //conditions to go back to main menu or to exit the program
             {
                 clear_screen();
                 continue;
@@ -215,11 +269,11 @@ int main(void) {
             }
         }
 
-        else if (main_action == 2)
+        else if (main_action == 2) //option for buying a game
         {
             clear_screen();
 
-            while (1)
+            while (1) //loop to control valid and invalid inputs
             {
                 printf("Enter Game Code from Displayed item (1 - 20): ");
                 scanf("%d", &selected_game_code);
@@ -228,7 +282,7 @@ int main(void) {
 
                 printf("\n\n");
 
-                for (int index = 0; index < 20; index++)
+                for (int index = 0; index < 20; index++) //loop for finding the chosen game for the game database
                 {
                     if (selected_game_code == item[index].code)
                     {
@@ -240,7 +294,7 @@ int main(void) {
                     }
                 }
 
-                if (game_found != 1)
+                if (game_found != 1) //condition for invalid choice
                 {
                     red_text();
                     printf("\n\nInvalid Code!\nPlease try Again!");
@@ -257,6 +311,7 @@ int main(void) {
 
             printf("\n\n");
 
+            //asking for necessary information from the user
             printf("Enter New Username (Use '_' Instead of White Spaces): ");
             scanf("%s", customer_access.name);
             printf("Enter Phone Number: ");
@@ -269,10 +324,12 @@ int main(void) {
             scanf("%s", customer_access.gamepal);
 
             clear_screen();
-            float final_amount = price + (price * 0.10);
+
+            float final_amount = price + (price * 0.10); //calculating total cost along with 10% VAT
+
             printf("Total Amount to be Paid Including 10%% VAT: $%.2f\n", final_amount);
             
-            while (1)
+            while (1) //loop to control valid and invalid inputs
             {
                 printf("Enter Amount to Collect From Your GamePal: ");
                 scanf("%f", &collected_amount);
@@ -294,13 +351,13 @@ int main(void) {
 
             printf("An OTP Code Has Been Sent to You\n");
 
-            otp = rand() % 90001 + 510000;
+            otp = rand() % 90001 + 510000; //generating a random 6 digit otp code between 510000 and 600000
             
             blue_text();
             printf("\nYour OTP Code is: %d\n", otp);
             reset_text();
 
-            while (1)
+            while (1) //loop to control correct and incorrect input of otp
             {
                 printf("\nEnter Your OTP Code (6 Digits): ");
                 scanf("%d", &requested_otp);
@@ -318,7 +375,7 @@ int main(void) {
                 printf("1. Confirm Order\n2. Cancel Order\n\nEnter an Option: ");
                 scanf("%d", &option2_action1);
 
-                if (option2_action1 == 1)
+                if (option2_action1 == 1) //if order is confirmed
                 {
                     clear_screen();
 
@@ -327,8 +384,9 @@ int main(void) {
                     printf("Transaction Successful!\n");
                     reset_text();
 
-                    real_time(time_string);
+                    real_time(time_string); //generating the time of purchase
 
+                    //transaction details
                     printf("\nGame: %s\n", selected_game_name);
                     printf("Customer: %s\n", customer_access.name);
                     printf("Customer Phone: %s\n", customer_access.phone);
@@ -356,7 +414,7 @@ int main(void) {
                     }
                     
                 }
-                else if (option2_action1 == 2)
+                else if (option2_action1 == 2) //if order is cancelled
                 {
                     red_text();
                     printf("Order Cancelled!\n");
@@ -377,7 +435,7 @@ int main(void) {
             }
         }
 
-        else if (main_action == 3)
+        else if (main_action == 3) //option for admin access
         {
             int admin_choice;
 
@@ -387,7 +445,7 @@ int main(void) {
             printf("Welcome to Admin Access!\n");
             reset_text();
 
-            while (1)
+            while (1) //loop for controlling correct and incorrect admin credentials
             {
                 printf("\nEnter Admin Username (No White Spaces): ");
                 scanf("%s", admin_access.name);
@@ -407,14 +465,14 @@ int main(void) {
                 }
             }
 
-            while (1)
+            while (1) //loop for controlling admin actions
             {
                 clear_screen();
 
                 printf("1. Add a New Game to Replace one\n2. Exit\n\nEnter an Option: ");
                 scanf("%d", &admin_choice);
 
-                if (admin_choice == 1)
+                if (admin_choice == 1) //option for adding a new game
                 {
                     clear_screen();
 
@@ -427,7 +485,7 @@ int main(void) {
                         continue;
                     }
 
-                    for (int index = 0; index < 20; index++)
+                    for (int index = 0; index < 20; index++) //loop to find the chosen game
                     {
                         if (admin_index == item[index].code)
                         {
@@ -482,13 +540,13 @@ int main(void) {
             }
         }
 
-        else if (main_action == 4)
+        else if (main_action == 4) //option for exiting the program
         {
             exit_program();
             break;
         }
 
-        else
+        else //for invalid choices
         {
             invalid_choice();
             clear_screen();
@@ -497,4 +555,5 @@ int main(void) {
     }
 
     return 0;
+    
 }
