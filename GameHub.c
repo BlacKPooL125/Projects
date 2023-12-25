@@ -240,6 +240,8 @@ int main(void) {
     int option2_action3;
     int option3_action1;
     int admin_index;
+    int admin_invalid_flag = 0;
+    int game_not_found = 0;
 
     srand(time(NULL)); //seeding the random number generator for otp code with current time
 
@@ -468,7 +470,10 @@ int main(void) {
 
             while (1) //loop for controlling admin actions
             {
-                clear_screen();
+                if (admin_invalid_flag != 1 && game_not_found != 1)
+                {
+                    clear_screen();
+                }
 
                 printf("1. Add a New Game to Replace one\n2. Exit\n\nEnter an Option: ");
                 scanf("%d", &admin_choice);
@@ -482,7 +487,10 @@ int main(void) {
 
                     if (admin_index < 1 || admin_index > 20)
                     {
+                        game_not_found = 1;
+                        printf("\n\n");
                         invalid_choice();
+                        printf("\n\n");
                         continue;
                     }
 
@@ -530,7 +538,10 @@ int main(void) {
                 }
                 else
                 {
+                    printf("\n\n");
                     invalid_choice();
+                    printf("\n\n");
+                    admin_invalid_flag = 1;
                     continue;
                 }
             }
