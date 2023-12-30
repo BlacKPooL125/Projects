@@ -162,37 +162,40 @@ bool check_win(char board[4][4], char player) {
     
 }
 
-bool draw(char board[4][4]) {
-
-    int counter = 0;
-
-    for (int i = 1; i < 4; i++)
-    {
-        for (int j = 1; j < 4; j++)
-        {
-            if (board[i][j] != '-')
-            {
-                counter++;
-            }
-        }
-    }
-
-    if (counter == 9)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-
-}
-
 void post_game(int *inner_option, char player) {
 
     clear_screen();
     green_text();
     printf("Player %c wins!", player);
+    reset_text();
+
+    while (true)
+    {
+        printf("\n\n");
+
+        restart_exit(inner_option);
+
+        if (*inner_option == 1)
+        {
+            break;
+        }
+        else if (*inner_option == 2)
+        {
+            break;
+        }
+        else
+        {
+            continue;
+        }           
+    }
+
+}
+
+void draw_message(int *inner_option) {
+
+    clear_screen();
+    blue_text();
+    printf("DRAW!");
     reset_text();
 
     while (true)
@@ -228,6 +231,7 @@ int main(void) {
     bool is_draw;
     int move, row, col;
     int inner_option;
+    int move_counter = 0;
 
     reset_board(board);
 
@@ -255,6 +259,7 @@ int main(void) {
                 col = move % 10;
 
                 board[row][col] = 'x';
+                move_counter++;
 
                 clear_screen();
                 display_board(board);
@@ -268,6 +273,7 @@ int main(void) {
                     if (inner_option == 1)
                     {
                         reset_board(board);
+                        move_counter = 0;
                         continue;
                     }
                     else
@@ -278,21 +284,14 @@ int main(void) {
                     }
                 }
 
-                is_draw = draw(board);
-
-                if (is_draw)
+                if (move_counter == 9)
                 {
-                    blue_text();
-                    printf("Draw!");
-                    reset_text();
-
-                    printf("\n\n");
-
-                    post_game(&inner_option, player_x);
+                    draw_message(&inner_option);
 
                     if (inner_option == 1)
                     {
                         reset_board(board);
+                        move_counter = 0;
                         continue;
                     }
                     else
@@ -315,6 +314,7 @@ int main(void) {
                 col = move % 10;
 
                 board[row][col] = 'o';
+                move_counter++;
 
                 player_o_wins = check_win(board, player_o);
 
@@ -322,34 +322,10 @@ int main(void) {
                 {
                     post_game(&inner_option, player_o);
 
-                if (inner_option == 1)
-                {
-                    reset_board(board);
-                    continue;
-                }
-                else
-                {
-                    clear_screen();
-                    exit_message();
-                    return 0;
-                }
-                }
-
-                is_draw = draw(board);
-
-                if (is_draw)
-                {
-                    blue_text();
-                    printf("Draw!");
-                    reset_text();
-
-                    printf("\n\n");
-
-                    post_game(&inner_option, player_x);
-
                     if (inner_option == 1)
                     {
                         reset_board(board);
+                        move_counter = 0;
                         continue;
                     }
                     else
