@@ -162,11 +162,37 @@ bool check_win(char board[4][4], char player) {
     
 }
 
+bool draw(char board[4][4]) {
+
+    int counter = 0;
+
+    for (int i = 1; i < 4; i++)
+    {
+        for (int j = 1; j < 4; j++)
+        {
+            if (board[i][j] != '-')
+            {
+                counter++;
+            }
+        }
+    }
+
+    if (counter == 9)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
 void post_game(int *inner_option, char player) {
 
     clear_screen();
     green_text();
-    printf("Player %c wins!\n", player);
+    printf("Player %c wins!", player);
     reset_text();
 
     while (true)
@@ -199,6 +225,7 @@ int main(void) {
     char player_o = 'o';
     bool player_x_wins;
     bool player_o_wins;
+    bool is_draw;
     int move, row, col;
     int inner_option;
 
@@ -212,6 +239,7 @@ int main(void) {
         {
             while (true)
             {
+                
                 clear_screen();
                 display_board(board);
 
@@ -250,6 +278,31 @@ int main(void) {
                     }
                 }
 
+                is_draw = draw(board);
+
+                if (is_draw)
+                {
+                    blue_text();
+                    printf("Draw!");
+                    reset_text();
+
+                    printf("\n\n");
+
+                    post_game(&inner_option, player_x);
+
+                    if (inner_option == 1)
+                    {
+                        reset_board(board);
+                        continue;
+                    }
+                    else
+                    {
+                        clear_screen();
+                        exit_message();
+                        return 0;
+                    }
+                }
+
                 printf("Enter player 0: ");
                 scanf("%d", &move);
 
@@ -268,6 +321,31 @@ int main(void) {
                 if (player_o_wins)
                 {
                     post_game(&inner_option, player_o);
+
+                if (inner_option == 1)
+                {
+                    reset_board(board);
+                    continue;
+                }
+                else
+                {
+                    clear_screen();
+                    exit_message();
+                    return 0;
+                }
+                }
+
+                is_draw = draw(board);
+
+                if (is_draw)
+                {
+                    blue_text();
+                    printf("Draw!");
+                    reset_text();
+
+                    printf("\n\n");
+
+                    post_game(&inner_option, player_x);
 
                     if (inner_option == 1)
                     {
